@@ -21,9 +21,9 @@ function startColorChanging() {
 function stopColorChanging() {
     refs.stopBtn.removeEventListener('click', stopColorChanging);
     refs.startBtn.addEventListener('click', startColorChanging);
-    clearInterval(intervalId);
     refs.startBtn.style.opacity = '100%';
     refs.stopBtn.style.opacity = '10%';
+    clearInterval(intervalId);
 }
 
 function getRandomHexColor() {
