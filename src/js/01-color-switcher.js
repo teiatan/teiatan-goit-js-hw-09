@@ -4,22 +4,26 @@ const refs = {
     stopBtn: document.querySelector('[data-stop]'),
 };
   
-let intervalId = 0;
+let intervalId = null;
 refs.startBtn.addEventListener('click', startColorChanging);
+refs.stopBtn.style.opacity = '10%';
 
 function startColorChanging() {
-    refs.startBtn.removeEventListener('click', startColorChanging);
+    refs.startBtn.removeEventListener('click', startColorChanging);  
     refs.stopBtn.addEventListener('click', stopColorChanging);
-    setInterval(() => {
+    refs.startBtn.style.opacity = '10%';
+    refs.stopBtn.style.opacity = '100%';
+    intervalId = setInterval(() => {
         refs.body.style.backgroundColor = getRandomHexColor();
     }, 1000);
-    intervalId += 1;
 }
 
 function stopColorChanging() {
     refs.stopBtn.removeEventListener('click', stopColorChanging);
     refs.startBtn.addEventListener('click', startColorChanging);
     clearInterval(intervalId);
+    refs.startBtn.style.opacity = '100%';
+    refs.stopBtn.style.opacity = '10%';
 }
 
 function getRandomHexColor() {
