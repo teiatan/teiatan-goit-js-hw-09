@@ -14,9 +14,13 @@ const refs = {
 let selectedTime = null;
 refs.startBtn.disabled = true;
 
-const timer = {
-    intervalId: null,
-    isActive: false,
+class Timer {
+    constructor({ startTimer }) {
+        this.intervalId = null;
+        this.isActive = false;
+        this.startTimer = startTimer;
+    }
+    
     start() {
         refs.startBtn.disabled = true;
         if (this.isActive) {
@@ -27,21 +31,14 @@ const timer = {
             const currentTime = Date.now();
             const deltaTime = selectedTime - currentTime;
             const time = convertMs(deltaTime);
-            this.show(time);
+            this.startTimer(time);
             if (deltaTime <= 0) {
                 clearInterval(this.intervalId);
                 this.isActive = false;
                 return;
             }
         }, 1000);
-    },
-
-    show({ days, hours, minutes, seconds }) {
-        refs.days.textContent = days;
-        refs.hours.textContent = hours;
-        refs.minutes.textContent = minutes;
-        refs.seconds.textContent = seconds;
-    }
+    }   
 }
 
 flatpickr(refs.input, {
@@ -76,4 +73,15 @@ function convertMs(ms) {
   const seconds = twoNumbersString(Math.floor((((ms % day) % hour) % minute) / second));
   return { days, hours, minutes, seconds };
 }
+
+function show({ days, hours, minutes, seconds }) {
+    refs.days.textContent = days;
+    refs.hours.textContent = hours;
+    refs.minutes.textContent = minutes;
+    refs.seconds.textContent = seconds;
+}
+
+const timer = new Timer({
+    startTimer: show,
+});
 
