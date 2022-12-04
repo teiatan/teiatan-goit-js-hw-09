@@ -6,13 +6,13 @@ const refs = {
   
 let intervalId = null;
 refs.startBtn.addEventListener('click', startColorChanging);
-refs.stopBtn.style.opacity = '10%';
+refs.stopBtn.disabled = true;
 
 function startColorChanging() {
     refs.startBtn.removeEventListener('click', startColorChanging);  
     refs.stopBtn.addEventListener('click', stopColorChanging);
-    refs.startBtn.style.opacity = '10%';
-    refs.stopBtn.style.opacity = '100%';
+    refs.startBtn.disabled = true;
+    refs.stopBtn.disabled = false;
     intervalId = setInterval(() => {
         refs.body.style.backgroundColor = getRandomHexColor();
     }, 1000);
@@ -21,8 +21,8 @@ function startColorChanging() {
 function stopColorChanging() {
     refs.stopBtn.removeEventListener('click', stopColorChanging);
     refs.startBtn.addEventListener('click', startColorChanging);
-    refs.startBtn.style.opacity = '100%';
-    refs.stopBtn.style.opacity = '10%';
+    refs.startBtn.disabled = false;
+    refs.stopBtn.disabled = true;
     clearInterval(intervalId);
 }
 
