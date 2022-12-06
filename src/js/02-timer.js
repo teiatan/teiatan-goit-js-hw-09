@@ -3,42 +3,42 @@ import "flatpickr/dist/flatpickr.min.css";
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 const refs = {
-    input: document.querySelector('#datetime-picker'),
-    startBtn: document.querySelector('button[data-start]'),
-    days: document.querySelector('span[data-days]'),
-    hours: document.querySelector('span[data-hours]'),
-    minutes: document.querySelector('span[data-minutes]'),
-    seconds: document.querySelector('span[data-seconds]'),
+  input: document.querySelector('#datetime-picker'),
+  startBtn: document.querySelector('button[data-start]'),
+  days: document.querySelector('span[data-days]'),
+  hours: document.querySelector('span[data-hours]'),
+  minutes: document.querySelector('span[data-minutes]'),
+  seconds: document.querySelector('span[data-seconds]'),
 };
 
 let selectedTime = null;
 refs.startBtn.disabled = true;
 
 class Timer {
-    constructor({ startTimer }) {
-        this.intervalId = null;
-        this.isActive = false;
-        this.startTimer = startTimer;
-    }
-    
-    start() {
-        refs.startBtn.disabled = true;
-        if (this.isActive) {
-        return;
-        }
-        this.isActive = true;
-        this.intervalId = setInterval(() => {
-            const currentTime = Date.now();
-            const deltaTime = selectedTime - currentTime;
-            const time = convertMs(deltaTime);
-            this.startTimer(time);
-            if (deltaTime <= 0) {
-                clearInterval(this.intervalId);
-                this.isActive = false;
-                return;
-            }
-        }, 1000);
-    }   
+  constructor({ startTimer }) {
+      this.intervalId = null;
+      this.isActive = false;
+      this.startTimer = startTimer;
+  }
+  
+  start() {
+      refs.startBtn.disabled = true;
+      if (this.isActive) {
+      return;
+      }
+      this.isActive = true;
+      this.intervalId = setInterval(() => {
+          const currentTime = Date.now();
+          const deltaTime = selectedTime - currentTime;
+          const time = convertMs(deltaTime);
+          this.startTimer(time);
+          if (deltaTime <= 0) {
+              clearInterval(this.intervalId);
+              this.isActive = false;
+              return;
+          }
+      }, 1000);
+  }   
 }
 
 flatpickr(refs.input, {
@@ -75,13 +75,13 @@ function convertMs(ms) {
 }
 
 function show({ days, hours, minutes, seconds }) {
-    refs.days.textContent = days;
-    refs.hours.textContent = hours;
-    refs.minutes.textContent = minutes;
-    refs.seconds.textContent = seconds;
+  refs.days.textContent = days;
+  refs.hours.textContent = hours;
+  refs.minutes.textContent = minutes;
+  refs.seconds.textContent = seconds;
 }
 
 const timer = new Timer({
-    startTimer: show,
+  startTimer: show,
 });
 
