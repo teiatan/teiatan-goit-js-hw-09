@@ -17,7 +17,7 @@ function formSubmit(e) {
 
   console.log(step);
 
-  for (position = 1; position <= amount; position += 1) {
+  for (let position = 1; position <= amount; position += 1) {
     createPromise(position, delay)
     .then(({ position, delay}) => {
       setTimeout(() => {
